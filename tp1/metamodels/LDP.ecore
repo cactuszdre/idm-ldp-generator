@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="LDP" nsURI="http://LDP/1.0" nsPrefix="LDP">
+  <eClassifiers xsi:type="ecore:EClass" name="Processus">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activites" upperBound="-1"
+        eType="#//Activite" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="debut" lowerBound="1" eType="#//Debut"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fin" lowerBound="1" eType="#//Fin"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activiteCourante" eType="#//Activite"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Activite">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="precedente" eType="#//Activite"
+        eOpposite="#//Activite/suivante"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="suivante" eType="#//Activite"
+        eOpposite="#//Activite/precedente"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//Action" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PseudoEtat" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+        eType="#//Activite"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Debut" eSuperTypes="#//PseudoEtat"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Fin" eSuperTypes="#//PseudoEtat"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Action" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Variable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InitVariable" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
+        eType="#//Variable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="valeurInit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CreateObject" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="classe" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
+        eType="#//Variable" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CallMethod" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nomMethode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="objetCible" lowerBound="1"
+        eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parametres" upperBound="-1"
+        eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resultat" eType="#//Variable"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

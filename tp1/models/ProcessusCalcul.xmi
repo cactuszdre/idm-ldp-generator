@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LDP:Processus xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:LDP="http://LDP/1.0" xsi:schemaLocation="http://LDP/1.0 ../metamodels/LDP.ecore"
+    nom="ProcessusCalcul">
+  <activites nom="init" suivante="//@activites.1">
+    <actions xsi:type="LDP:InitVariable" valeurInit="6">
+      <variable nom="n" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:InitVariable" valeurInit="3">
+      <variable nom="puiss" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:InitVariable" valeurInit="100">
+      <variable nom="x" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:CreateObject" classe="Calcul">
+      <variable nom="calc" type="Calcul"/>
+    </actions>
+    <actions xsi:type="LDP:CreateObject" classe="Logger">
+      <variable nom="log" type="Logger"/>
+    </actions>
+  </activites>
+  <activites nom="fact" precedente="//@activites.0" suivante="//@activites.2">
+    <actions xsi:type="LDP:InitVariable">
+      <variable nom="resFact" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:CallMethod" nomMethode="factorial"
+        objetCible="//@activites.0/@actions.3/@variable"
+        parametres="//@activites.0/@actions.0/@variable">
+      <resultat nom="resFact" type="int"/>
+    </actions>
+  </activites>
+  <activites nom="sqrt" precedente="//@activites.1" suivante="//@activites.3">
+    <actions xsi:type="LDP:InitVariable">
+      <variable nom="resSqrt" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:CallMethod" nomMethode="sqrt"
+        objetCible="//@activites.0/@actions.3/@variable"
+        parametres="//@activites.1/@actions.1/@resultat">
+      <resultat nom="resSqrt" type="int"/>
+    </actions>
+  </activites>
+  <activites nom="pow" precedente="//@activites.2" suivante="//@activites.4">
+    <actions xsi:type="LDP:InitVariable">
+      <variable nom="resPower" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:CallMethod" nomMethode="power"
+        objetCible="//@activites.0/@actions.3/@variable"
+        parametres="//@activites.2/@actions.1/@resultat //@activites.0/@actions.1/@variable">
+      <resultat nom="resPower" type="int"/>
+    </actions>
+  </activites>
+  <activites nom="div" precedente="//@activites.3">
+    <actions xsi:type="LDP:InitVariable">
+      <variable nom="resDiv" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:CallMethod" nomMethode="division"
+        objetCible="//@activites.0/@actions.3/@variable"
+        parametres="//@activites.3/@actions.1/@resultat //@activites.0/@actions.2/@variable">
+      <resultat nom="resDiv" type="int"/>
+    </actions>
+    <actions xsi:type="LDP:CallMethod" nomMethode="printValue"
+        objetCible="//@activites.0/@actions.4/@variable"
+        parametres="//@activites.4/@actions.1/@resultat"/>
+  </activites>
+  <debut reference="//@activites.0"/>
+  <fin reference="//@activites.4"/>
+</LDP:Processus>

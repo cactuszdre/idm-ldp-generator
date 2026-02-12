@@ -1,0 +1,54 @@
+[comment encoding = UTF-8 /]
+[module generate('http://LDP/1.0')]
+
+[template public generateJava(p : Processus)]
+[comment @main /]
+[file (p.nom + '.java', false, 'UTF-8')]
+public class [p.nom/] {
+
+    public static void main(String['['/][']'/] argv) {
+[p.genererCorpsMain()/]
+    }
+}
+[/file]
+[/template]
+
+[template public genererCorpsMain(p : Processus)]
+[let firstActivity : Activite = p.debut.reference]
+[firstActivity.genererSequence()/]
+[/let]
+[/template]
+
+[template public genererSequence(a : Activite)]
+[a.genererActivite()/]
+[if (a.suivante <> null)]
+[a.suivante.genererSequence()/]
+[/if]
+[/template]
+
+[template public genererActivite(a : Activite)]
+[for (action : Action | a.actions)]
+        [action.genererAction()/]
+[/for]
+[/template]
+
+[template public genererAction(action : Action)]
+// Action inconnue
+[/template]
+
+[template public genererAction(initVar : InitVariable)]
+[initVar.variable.type/] [initVar.variable.nom/][if (initVar.valeurInit <> null and initVar.valeurInit.size() > 0)] = [initVar.valeurInit/][/if];
+[/template]
+
+[template public genererAction(createObj : CreateObject)]
+[createObj.variable.type/] [createObj.variable.nom/] = new [createObj.classe/]();
+[/template]
+
+[template public genererAction(callMeth : CallMethod)]
+[if (callMeth.resultat <> null)]
+[callMeth.resultat.nom/] = [/if][callMeth.objetCible.nom/].[callMeth.nomMethode/]([callMeth.genererParametres()/]);
+[/template]
+
+[template public genererParametres(callMeth : CallMethod)]
+[for (param : Variable | callMeth.parametres) separator(', ')][param.nom/][/for]
+[/template]
