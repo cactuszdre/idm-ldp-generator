@@ -58,10 +58,7 @@ Le générateur produit une classe Java contenant une méthode `main` qui exécu
 - La génération d'appels de méthodes avec paramètres et résultat
 
 ### Partie 2 : Séquences parallèles ❌
-Non implémentée. Cette partie aurait nécessité :
-- L'ajout des concepts de **Fourche** et **Jonction** dans le méta-modèle
-- La génération de code Java utilisant des **threads** pour les séquences parallèles
-- La **synchronisation** via des points de jonction (attente de terminaison des threads)
+Non implémentée.
 
 ## Ce qui fonctionne
 - ✅ Le méta-modèle LDP.ecore est valide et complet pour la Partie 1
