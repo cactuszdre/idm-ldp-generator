@@ -1,7 +1,7 @@
 # Mini-Projet IDM - Génération de code Java
 
 ## Auteur
-*À compléter*
+Steven T.
 
 ## Description
 
